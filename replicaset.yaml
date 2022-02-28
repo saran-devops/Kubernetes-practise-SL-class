@@ -1,0 +1,26 @@
+kind: ReplicaSet 
+apiVersion: apps/v1
+metadata:           ## this is the controller replicaset metadata 
+  name: rs1 
+  namespace: default 
+  #labels: # optional  
+spec:              ## this is hte controller replicaset spec 
+  replicas: 4   ## if we do not mention the replicas value it will create one replica
+  selector:
+    matchLabels:
+      env: qa
+  template:  ## pod template can be used by replicaset for creating pods if it can not find the pods with slector value in the cluster 
+    metadata:  # this is the pod metadata 
+      #name: hello   # kube will create some random names for every pod automaticly 
+      labels:
+        env: qa
+    spec:      # this sis the pod spec 
+      restartPolicy: Always
+      #initContainers: 
+      containers:
+        - name: cont1 
+          image: lerndevops/samplepyapp:v1 
+          ports:
+            - name: http 
+              containerPort: 3000 
+

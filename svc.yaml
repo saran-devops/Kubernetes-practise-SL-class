@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc1
+  namespace: default
+  #labels: #optional
+spec:
+  type: ClusterIP  ## it is an internal virutal load Balancer that can forward a request into backend pods
+  selector:
+    env: qa   # here the service will select all the pods having lebel env=qa as backends
+  ports:
+    - port: 80     ## this is the virutal LB Port we are assinging
+      targetPort: 3000  ## this is the port of the application inside the cont
+
+

@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: lb-svc
+  namespace: default
+  #labels: #optional
+spec:
+  type: LoadBalancer  ## it is going to create a external LB and also publish a nodeport/hostport on everynode int he cluster and also creates an internal virutal load Balancer
+                  ## (ClusterIP) that can forward a request into backend pods
+  selector:
+    env: qa   # here the service will select all the pods having lebel env=qa as backends
+  ports:
+    - port: 80     ## this is the virutal LB Port we are assinging
+      targetPort: 3000  ## this is the port of the application inside the cont
+      #nodePort: 30008
+

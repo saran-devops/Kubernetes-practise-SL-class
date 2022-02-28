@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-restart-pod
+  namespace: cda-dev
+  labels:
+    env: dev
+spec:
+  restartPolicy: Never #Always or Never
+  containers:
+    - name: nginx-1
+      image: nginx
+      ports:
+        - name: http
+          containerPort: 8080 #the port inside the container where the webserver runs.
+        - name: https
+          containerPort: 8443 
+    - name: ubuntu
+      image: ubuntu #This container will exit since the command inside the image doesnt run a constant process or long running process
+      command: ["bash","-c","sleep 3600"]
+    - name: tomcat
+      image: tomcat
+      ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443

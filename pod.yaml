@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-first-pod
+  namespace: cda-dev
+  labels:
+    env: dev
+spec:
+  containers:
+    - name: nginx-1
+      image: nginx
+      ports:
+        - name: http
+          containerPort: 8080 #the port inside the container where the webserver runs.
